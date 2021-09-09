@@ -16,7 +16,10 @@ kubectl config use-context k3d-lokicluster
 ```
 
 # install loki stack
-?> **Tip** using local ephemeral storage but can enable persistent stores ```loki.persistence.enabled=true,loki.persistence.storageClassName=local-path,loki.persistence.size=10Gi```
+?> **Tip** using local ephemeral storage but can enable persistent stores
+	```loki.persistence.enabled=true,
+	loki.persistence.storageClassName=local-path,
+	loki.persistence.size=10Gi```
 
 !> **warning** compactor is used here so do not run more than one replica at a time
 
@@ -24,7 +27,7 @@ kubectl config use-context k3d-lokicluster
 helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=false -f values.yaml
 
 ```
-?> **Help** a rendered version of the yaml can be found in the [git repo](https://github.com/d-james-projects/archive)
+?> **Help** a rendered version of the yaml can be found in the [git repo](https://github.com/broken)
 
 view the secret used by loki for the loaded config, it is base64 encoded
 
