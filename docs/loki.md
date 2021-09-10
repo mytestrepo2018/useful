@@ -38,8 +38,8 @@ view the secret used by loki for the loaded config, it is base64 encoded
 
 # configuring promtail for basic use against 'pod' sd targets plus dropping logs in a namespace
 
-  ?> note requires a service for the pod to be discovered and scraped
-    **need to watch out for static configs in the yaml**
+?> note requires a service for the pod to be discovered and scraped
+  **need to watch out for static configs in the yaml**
 
 remove all pods in the namespaces **secret** and **nosee**
 ``` yaml
