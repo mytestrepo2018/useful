@@ -1,3 +1,4 @@
+#
 # setup minio
 ``` bash
 sudo docker run --restart always --net=host -p 9000:9000 -p 9001:9001 -v /disks/1:/data --name minio -d quay.io/minio/minio server /data --console-address ":9001"
