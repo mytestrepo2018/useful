@@ -16,10 +16,6 @@ kubectl config use-context k3d-lokicluster
 ```
 
 # install loki stack
-?> **Tip** using local ephemeral storage but can enable persistent stores
-	```loki.persistence.enabled=true,
-	loki.persistence.storageClassName=local-path,
-	loki.persistence.size=10Gi```
 
 !> **warning** compactor is used here so do not run more than one replica at a time
 
@@ -27,14 +23,37 @@ kubectl config use-context k3d-lokicluster
 helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=false -f values.yaml
 
 ```
-?> **Help** a rendered version of the yaml can be found in the [git repo](https://github.com/broken)
+
+?> **Tip** using local ephemeral storage but can enable persistent stores
+``` bash
+  loki.persistence.enabled=true,
+  loki.persistence.storageClassName=local-path,
+  loki.persistence.size=10Gi
+```
+
+?> **Help** a rendered version of the yaml can be found in the [git repo](https://github.com/mytestrepo2018/useful)
 
 view the secret used by loki for the loaded config, it is base64 encoded
 
-# configuring promtail for basic use
+# configuring promtail for basic use against 'pod' sd targets plus dropping logs in a namespace
 
-# dropping logs in a namespace
+  ?> note requires a service for the pod to be discovered and scraped
+    **need to watch out for static configs in the yaml**
 
+remove all pods in the namespaces **secret** and **nosee**
+``` yaml
+    scrape_configs:
+    - job_name: kubernetes-pods-name
+      pipeline_stages:
+        - docker: {}
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - action: drop
+        regex: 'secret|nosee'
+        source_labels:
+        - __meta_kubernetes_namespace
+```
 
 # for grafana ui
 ``` bash
@@ -129,29 +148,4 @@ docker run --rm --name promtail -ti --net=host \
 -v /etc/machine-id:/etc/machine-id \
 -v /home/david/gits/arch1/:/config \
 grafana/promtail:latest -config.file=/config/promtail-local-config.yaml
-```
-
-# to access loki via ingress (and k3d lbalancer)
-``` yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: loki
-  annotations:
-    ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: loki
-            port:
-              number: 3100
-```
-
-``` bash
-kubectl create -f ingress.yaml
 ```
