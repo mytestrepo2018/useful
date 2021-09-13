@@ -1,31 +1,79 @@
-promtail:
+loki:
+  image:
+    tag: 2.3.0  
+  enabled: true
   config:
-    snippets:
-      extraScrapeConfigs: |
-        # Add an additional scrape config for syslog
-        - job_name: journal
-          journal:
-            path: /tmp/journal
-            max_age: 12h
-            labels:
-              job: systemd-journal
-          relabel_configs:
-            - source_labels:
-                - '__journal__systemd_unit'
-              target_label: 'unit'
-            - source_labels:
-                - '__journal__hostname'
-              target_label: 'hostname'
+    ingester:
+      lifecycler:
+        address: 127.0.0.1
+        ring:
+          kvstore:
+            store: inmemory
+          replication_factor: 1
+        final_sleep: 0s
+      chunk_idle_period: 5m
+      chunk_retain_period: 30s
 
-  # Mount journal directory into promtail pods
-  extraVolumes:
-    - name: journal
-      hostPath:
-        path: /tmp/journal
+    schema_config:
+      configs:
+      - from: 2020-05-15
+        store: boltdb-shipper
+        object_store: s3
+        schema: v11
+        index:
+          prefix: index_
+          period: 24h
 
-  extraVolumeMounts:
-    - name: journal
-      mountPath: /tmp/journal
-      readOnly: true
+    storage_config:
+      boltdb_shipper:
+        active_index_directory: /data/loki/boltdb-shipper-active
+        cache_location: /data/loki/boltdb-shipper-cache
+        cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+        shared_store: s3
 
+      aws:
+        #s3: s3://user:password@192.168.2.222:9000/lokitesting
+        s3forcepathstyle: true
+        bucketnames: lokitesting
+        endpoint: 192.168.2.222:9000
+        insecure: true
+        access_key_id: ${ACCESS_KEY_ID}
+        secret_access_key: ${SECRET_ACCESS_KEY}
+        #access_key_id: user
+        #secret_access_key: password
+
+    limits_config:
+      enforce_metric_name: false
+      reject_old_samples: true
+      reject_old_samples_max_age: 168h
+
+    compactor:
+      working_directory: /data/compactor
+      shared_store: s3
+      compaction_interval: 5m
+    
+promtail:
+  enabled: true
+  image:
+    tag: 2.3.0
+
+fluent-bit:
+  enabled: false
+
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: true
+  image:
+    tag: 7.5.0
+
+prometheus:
+  enabled: false
+
+filebeat:
+  enabled: false
+
+logstash:
+  enabled: false
 

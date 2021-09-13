@@ -94,6 +94,8 @@ kubectl create -f ingress.yaml
 # values for loki to read/write minio s3 store
 ``` yaml
 loki:
+  image:
+    tag: 2.3.0  
   enabled: true
   config:
     ingester:
@@ -125,8 +127,15 @@ loki:
         shared_store: s3
 
       aws:
-        s3: s3://user:password@192.168.2.222:9000/lokitesting
+        #s3: s3://user:password@192.168.2.222:9000/lokitesting
         s3forcepathstyle: true
+        bucketnames: lokitesting
+        endpoint: 192.168.2.222:9000
+        insecure: true
+        access_key_id: ${ACCESS_KEY_ID}
+        secret_access_key: ${SECRET_ACCESS_KEY}
+        #access_key_id: user
+        #secret_access_key: password
 
     limits_config:
       enforce_metric_name: false
@@ -137,7 +146,6 @@ loki:
       working_directory: /data/compactor
       shared_store: s3
       compaction_interval: 5m
-
 ```
 
 
@@ -149,4 +157,30 @@ docker run --rm --name promtail -ti --net=host \
 -v /etc/machine-id:/etc/machine-id \
 -v /home/david/gits/arch1/:/config \
 grafana/promtail:latest -config.file=/config/promtail-local-config.yaml
+```
+
+# using secrets for access to s3 bucket
+``` yaml
+          args:
+            - "-config.expand-env=true"
+            - "-config.file=/etc/loki/loki.yaml"
+            - "-log.level=warn"
+            #- "-print-config-stderr=true"
+          env:
+          - name: ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: s3-creds
+                key: access_key_id
+          - name: SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-creds
+                key: secret_access_key
+```
+
+``` bash
+kubectl create secret generic s3-creds \
+  --from-literal=access_key_id=user \
+  --from-literal=secret_access_key=password
 ```
