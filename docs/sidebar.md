@@ -4,3 +4,5 @@
 - [git](git.md)
 - [kube](kubenotes.md)
 - [loki](loki.md)
+- [suricata](suricata.md)
+
