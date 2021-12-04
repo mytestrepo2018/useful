@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: my-pod
+  name: my-pod
+  namespace: metrics
+spec:
+  serviceAccountName: thanos-s3
+  initContainers:
+  - image: amazon/aws-cli
+    name: my-aws-cli
+    command: ['aws', 's3', 'cp', 's3://71879-thanos/echo.yaml', 's3://71879-thanos/echo.bak']
+  containers:
+  - image: nginx
+    name: my-nginx
+    ports:
+    - containerPort: 80
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always

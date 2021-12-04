@@ -1,0 +1,24 @@
+## https://github.com/bitnami/charts/tree/master/bitnami/thanos/
+objstoreConfig: |-
+  type: s3
+  config:
+    bucket: 71879-thanos #S3 bucket name
+    endpoint: s3.eu-west-2.amazonaws.com #S3 Regional endpoint
+    #access_key: minio
+    #secret_key: minio123
+    #insecure: true
+bucketweb:
+  enabled: false
+compactor:      
+  enabled: true
+  persistence:
+    enabled: false
+storegateway:
+  enabled: true
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+querier:
+  stores:
+    - prom-prometheus-operator-prometheus-thanos.metrics.svc.cluster.local:10901

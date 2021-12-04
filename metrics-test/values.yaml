@@ -1,0 +1,425 @@
+alertmanager:
+  additionalPeers: []
+  config:
+    global:
+      resolve_timeout: 5m
+    receivers:
+    - name: "null"
+    route:
+      group_by:
+      - job
+      group_interval: 5m
+      group_wait: 30s
+      receiver: "null"
+      repeat_interval: 12h
+      routes:
+      - match:
+          alertname: Watchdog
+        receiver: "null"
+  configMaps: []
+  containers: []
+  enabled: true
+  externalConfig: false
+  image:
+    registry: docker.io
+    repository: bitnami/alertmanager
+    tag: 0.21.0-debian-10-r41
+  ingress:
+    annotations: {}
+    certManager: false
+    enabled: false
+    hosts:
+    - name: alertmanager.local
+      path: /
+    tls: {}
+  listenLocal: false
+  logFormat: logfmt
+  logLevel: info
+  nodeAffinity: {}
+  nodeSelector: {}
+  paused: false
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    enabled: false
+    size: 8Gi
+  podAffinity: {}
+  podAntiAffinity: soft
+  podAntiAffinityTopologyKey: kubernetes.io/hostname
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+  podMetadata:
+    annotations: {}
+    labels: {}
+  priorityClassName: ""
+  replicaCount: 1
+  resources: {}
+  retention: 120h
+  secrets: []
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
+  service:
+    annotations: {}
+    port: 9093
+    type: ClusterIP
+  serviceAccount:
+    create: true
+  serviceMonitor:
+    enabled: true
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+  storageSpec: {}
+  tolerations: []
+  volumeMounts: []
+  volumes: []
+exporters:
+  kube-state-metrics:
+    enabled: true
+  node-exporter:
+    enabled: true
+global:
+  labels: {}
+kube-state-metrics:
+  affinity: {}
+  collectors:
+    certificatesigningrequests: true
+    configmaps: true
+    cronjobs: true
+    daemonsets: true
+    deployments: true
+    endpoints: true
+    horizontalpodautoscalers: true
+    ingresses: true
+    jobs: true
+    limitranges: true
+    mutatingwebhookconfigurations: true
+    namespaces: true
+    networkpolicies: true
+    nodes: true
+    persistentvolumeclaims: true
+    persistentvolumes: true
+    poddisruptionbudgets: true
+    pods: true
+    replicasets: true
+    replicationcontrollers: true
+    resourcequotas: true
+    secrets: true
+    services: true
+    statefulsets: true
+    storageclasses: true
+    validatingwebhookconfigurations: false
+    verticalpodautoscalers: false
+    volumeattachments: true
+  extraArgs: {}
+  global:
+    labels: {}
+  hostNetwork: true
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: bitnami/kube-state-metrics
+    tag: 1.9.7-debian-10-r51
+  livenessProbe:
+    enabled: true
+    failureThreshold: 6
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  minReadySeconds: 0
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  rbac:
+    apiVersion: v1beta1
+    create: true
+    pspEnabled: true
+  readinessProbe:
+    enabled: true
+    failureThreshold: 6
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicaCount: 1
+  resources:
+    limits: {}
+    requests: {}
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
+  service:
+    annotations: {}
+    labels: {}
+    port: 8080
+    type: ClusterIP
+  serviceAccount:
+    create: true
+  serviceMonitor:
+    enabled: true
+  tolerations: []
+  updateStrategy: {}
+kubeApiServer:
+  enabled: true
+  serviceMonitor:
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+kubeProxy:
+  enabled: true
+  endpoints: []
+  namespace: kube-system
+  service:
+    enabled: true
+    port: 10249
+    targetPort: 10249
+  serviceMonitor:
+    https: false
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+kubelet:
+  enabled: true
+  namespace: kube-system
+  serviceMonitor:
+    cAdvisorMetricRelabelings: []
+    cAdvisorRelabelings: []
+    https: true
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+node-exporter:
+  affinity: {}
+  extraArgs:
+    collector.filesystem.ignored-fs-types: ^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+    collector.filesystem.ignored-mount-points: ^/(dev|proc|sys|var/lib/docker/.+)($|/)
+  extraVolumeMounts: []
+  extraVolumes: []
+  global:
+    labels: {}
+  hostNetwork: true
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: bitnami/node-exporter
+    tag: 1.0.1-debian-10-r40
+  livenessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  minReadySeconds: 0
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  priorityClassName: ""
+  rbac:
+    apiVersion: v1beta1
+    create: true
+    pspEnabled: true
+  readinessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  resources:
+    limits: {}
+    requests: {}
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
+  service:
+    addPrometheusScrapeAnnotation: true
+    annotations: {}
+    labels:
+      jobLabel: node-exporter
+    port: 9100
+    targetPort: 9100
+    type: ClusterIP
+  serviceAccount:
+    create: true
+  serviceMonitor:
+    enabled: true
+    jobLabel: jobLabel
+  tolerations: []
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+operator:
+  configmapReload:
+    image:
+      registry: docker.io
+      repository: bitnami/configmap-reload
+      tag: 0.4.0-debian-10-r18
+  createCustomResource: true
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    registry: docker.io
+    repository: bitnami/prometheus-operator
+    tag: 0.41.0-debian-10-r5
+  kubeletService:
+    enabled: true
+    namespace: kube-system
+  livenessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  logFormat: logfmt
+  logLevel: info
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAffinity: {}
+  podAnnotations: {}
+  podAntiAffinity: soft
+  priorityClassName: ""
+  prometheusConfigReloader:
+    image: {}
+  readinessProbe:
+    failureThreshold: 6
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 5
+  resources: {}
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
+  service:
+    annotations: {}
+    port: 8080
+    type: ClusterIP
+  serviceAccount:
+    create: true
+  serviceMonitor:
+    enabled: true
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+  tolerations: []
+prometheus:
+  additionalAlertRelabelConfigsExternal:
+    enabled: false
+  additionalPrometheusRules: []
+  additionalScrapeConfigsExternal:
+    enabled: false
+  alertingEndpoints: []
+  configMaps: []
+  containers: []
+  disableCompaction: false
+  enableAdminAPI: false
+  enabled: true
+  evaluationInterval: ""
+  externalLabels:
+    cluster: data-producer
+  image:
+    registry: docker.io
+    repository: bitnami/prometheus
+    tag: 2.20.1-debian-10-r0
+  ingress:
+    annotations: {}
+    certManager: false
+    enabled: false
+    hosts:
+    - name: prometheus.local
+      path: /
+    tls: {}
+  listenLocal: false
+  logFormat: logfmt
+  logLevel: debug
+  nodeAffinity: {}
+  nodeSelector: {}
+  paused: false
+  persistence:
+    accessModes:
+    - ReadWriteOnce
+    enabled: false
+    size: 8Gi
+  podAffinity: {}
+  podAntiAffinity: soft
+  podAntiAffinityTopologyKey: kubernetes.io/hostname
+  podDisruptionBudget:
+    enabled: false
+    minAvailable: 1
+  podMetadata:
+    annotations: {}
+    labels: {}
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  priorityClassName: ""
+  prometheusExternalLabelName: ""
+  prometheusExternalLabelNameClear: false
+  querySpec: {}
+  remoteRead: []
+  remoteWrite: []
+  replicaCount: 1
+  replicaExternalLabelName: ""
+  replicaExternalLabelNameClear: false
+  resources: {}
+  retention: 10h
+  retentionSize: ""
+  ruleNamespaceSelector: {}
+  ruleSelector: {}
+  scrapeInterval: ""
+  secrets: []
+  securityContext:
+    enabled: true
+    fsGroup: 1001
+    runAsUser: 1001
+  service:
+    annotations: {}
+    port: 9090
+    type: ClusterIP
+  serviceAccount:
+    create: false
+  serviceAccountName: thanos-s3
+  serviceMonitor:
+    enabled: true
+    interval: ""
+    metricRelabelings: []
+    relabelings: []
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
+  storageSpec: {}
+  thanos:
+    create: true
+    extraArgs: 
+      - --log.level=debug
+    image:
+      pullPolicy: IfNotPresent
+      registry: docker.io
+      repository: bitnami/thanos
+      tag: 0.14.0-scratch-r3
+    objectStorageConfig:
+      key: tsc
+      name: tsc
+    resources:
+      limits: {}
+      requests: {}
+    service:
+      annotations: {}
+      extraPorts: []
+      port: 10901
+      type: ClusterIP
+  tolerations: []
+  volumeMounts: []
+  volumes: []
+  walCompression: true
+rbac:
+  apiVersion: v1beta1
+  create: true
+  pspEnabled: true
+

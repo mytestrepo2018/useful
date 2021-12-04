@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+ name: thanos-s3
+ namespace: metrics
+ annotations:
+   eks.amazonaws.com/role-arn:  arn:aws:iam::accountid12345678:role/eks-thanos-s3-bucket
