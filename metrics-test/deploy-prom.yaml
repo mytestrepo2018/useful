@@ -6,312 +6,15 @@ metadata:
     meta.helm.sh/release-namespace: metrics
     prometheus-operator-input-hash: "15166973335368879789"
   creationTimestamp: "2021-12-04T04:27:21Z"
-  generation: 6
+  generation: 14
   labels:
     app.kubernetes.io/component: prometheus
     app.kubernetes.io/instance: prom
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-operator
     helm.sh/chart: prometheus-operator-0.31.1
-  managedFields:
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:metadata:
-        f:annotations:
-          .: {}
-          f:meta.helm.sh/release-name: {}
-          f:meta.helm.sh/release-namespace: {}
-          f:prometheus-operator-input-hash: {}
-        f:labels:
-          .: {}
-          f:app.kubernetes.io/component: {}
-          f:app.kubernetes.io/instance: {}
-          f:app.kubernetes.io/managed-by: {}
-          f:app.kubernetes.io/name: {}
-          f:helm.sh/chart: {}
-        f:ownerReferences:
-          .: {}
-          k:{"uid":"71af8306-9f3b-4ad2-8cf8-70b29fe65e41"}:
-            .: {}
-            f:apiVersion: {}
-            f:blockOwnerDeletion: {}
-            f:controller: {}
-            f:kind: {}
-            f:name: {}
-            f:uid: {}
-      f:spec:
-        f:podManagementPolicy: {}
-        f:replicas: {}
-        f:revisionHistoryLimit: {}
-        f:selector: {}
-        f:serviceName: {}
-        f:template:
-          f:metadata:
-            f:labels:
-              .: {}
-              f:app: {}
-              f:app.kubernetes.io/component: {}
-              f:app.kubernetes.io/instance: {}
-              f:app.kubernetes.io/name: {}
-              f:prometheus: {}
-          f:spec:
-            f:affinity:
-              .: {}
-              f:podAntiAffinity:
-                .: {}
-                f:preferredDuringSchedulingIgnoredDuringExecution: {}
-            f:containers:
-              k:{"name":"prometheus"}:
-                .: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:livenessProbe:
-                  .: {}
-                  f:failureThreshold: {}
-                  f:httpGet:
-                    .: {}
-                    f:path: {}
-                    f:port: {}
-                    f:scheme: {}
-                  f:periodSeconds: {}
-                  f:successThreshold: {}
-                  f:timeoutSeconds: {}
-                f:name: {}
-                f:ports:
-                  .: {}
-                  k:{"containerPort":9090,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                f:readinessProbe:
-                  .: {}
-                  f:failureThreshold: {}
-                  f:httpGet:
-                    .: {}
-                    f:path: {}
-                    f:port: {}
-                    f:scheme: {}
-                  f:periodSeconds: {}
-                  f:successThreshold: {}
-                  f:timeoutSeconds: {}
-                f:resources: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/etc/prometheus/certs"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-                    f:readOnly: {}
-                  k:{"mountPath":"/etc/prometheus/config_out"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-                    f:readOnly: {}
-                  k:{"mountPath":"/etc/prometheus/rules/prometheus-prom-prometheus-operator-prometheus-rulefiles-0"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-                  k:{"mountPath":"/prometheus"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-              k:{"name":"prometheus-config-reloader"}:
-                .: {}
-                f:args: {}
-                f:command: {}
-                f:env:
-                  .: {}
-                  k:{"name":"POD_NAME"}:
-                    .: {}
-                    f:name: {}
-                    f:valueFrom:
-                      .: {}
-                      f:fieldRef:
-                        .: {}
-                        f:apiVersion: {}
-                        f:fieldPath: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:resources:
-                  .: {}
-                  f:limits:
-                    .: {}
-                    f:cpu: {}
-                    f:memory: {}
-                  f:requests:
-                    .: {}
-                    f:cpu: {}
-                    f:memory: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/etc/prometheus/config"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-                  k:{"mountPath":"/etc/prometheus/config_out"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-              k:{"name":"rules-configmap-reloader"}:
-                .: {}
-                f:args: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:resources:
-                  .: {}
-                  f:limits:
-                    .: {}
-                    f:cpu: {}
-                    f:memory: {}
-                  f:requests:
-                    .: {}
-                    f:cpu: {}
-                    f:memory: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/etc/prometheus/rules/prometheus-prom-prometheus-operator-prometheus-rulefiles-0"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-              k:{"name":"thanos-sidecar"}:
-                .: {}
-                f:args: {}
-                f:env:
-                  .: {}
-                  k:{"name":"OBJSTORE_CONFIG"}:
-                    .: {}
-                    f:name: {}
-                    f:valueFrom:
-                      .: {}
-                      f:secretKeyRef:
-                        .: {}
-                        f:key: {}
-                        f:name: {}
-                f:image: {}
-                f:imagePullPolicy: {}
-                f:name: {}
-                f:ports:
-                  .: {}
-                  k:{"containerPort":10901,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                  k:{"containerPort":10902,"protocol":"TCP"}:
-                    .: {}
-                    f:containerPort: {}
-                    f:name: {}
-                    f:protocol: {}
-                f:resources: {}
-                f:terminationMessagePath: {}
-                f:terminationMessagePolicy: {}
-                f:volumeMounts:
-                  .: {}
-                  k:{"mountPath":"/prometheus"}:
-                    .: {}
-                    f:mountPath: {}
-                    f:name: {}
-            f:dnsPolicy: {}
-            f:restartPolicy: {}
-            f:schedulerName: {}
-            f:securityContext:
-              .: {}
-              f:fsGroup: {}
-              f:runAsUser: {}
-            f:terminationGracePeriodSeconds: {}
-            f:volumes:
-              .: {}
-              k:{"name":"config"}:
-                .: {}
-                f:name: {}
-                f:secret:
-                  .: {}
-                  f:defaultMode: {}
-                  f:secretName: {}
-              k:{"name":"config-out"}:
-                .: {}
-                f:emptyDir: {}
-                f:name: {}
-              k:{"name":"prometheus-prom-prometheus-operator-prometheus-db"}:
-                .: {}
-                f:emptyDir: {}
-                f:name: {}
-              k:{"name":"prometheus-prom-prometheus-operator-prometheus-rulefiles-0"}:
-                .: {}
-                f:configMap:
-                  .: {}
-                  f:defaultMode: {}
-                  f:name: {}
-                f:name: {}
-              k:{"name":"tls-assets"}:
-                .: {}
-                f:name: {}
-                f:secret:
-                  .: {}
-                  f:defaultMode: {}
-                  f:secretName: {}
-        f:updateStrategy:
-          f:type: {}
-      f:status:
-        f:replicas: {}
-    manager: operator
-    operation: Update
-    time: "2021-12-04T04:29:03Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:spec:
-        f:template:
-          f:spec:
-            f:containers:
-              k:{"name":"prometheus"}:
-                f:args: {}
-              k:{"name":"thanos-sidecar"}:
-                f:env:
-                  k:{"name":"OBJSTORE_CONFIG"}:
-                    f:valueFrom:
-                      f:secretKeyRef:
-                        f:key: {}
-                        f:name: {}
-            f:serviceAccount: {}
-            f:serviceAccountName: {}
-    manager: kubectl-edit
-    operation: Update
-    time: "2021-12-04T13:43:25Z"
-  - apiVersion: apps/v1
-    fieldsType: FieldsV1
-    fieldsV1:
-      f:status:
-        f:currentReplicas: {}
-        f:currentRevision: {}
-        f:observedGeneration: {}
-        f:readyReplicas: {}
-        f:updateRevision: {}
-        f:updatedReplicas: {}
-    manager: kube-controller-manager
-    operation: Update
-    time: "2021-12-04T13:43:33Z"
   name: prometheus-prom-prometheus-operator-prometheus
   namespace: metrics
-  ownerReferences:
-  - apiVersion: monitoring.coreos.com/v1
-    blockOwnerDeletion: true
-    controller: true
-    kind: Prometheus
-    name: prom-prometheus-operator-prometheus
-    uid: 71af8306-9f3b-4ad2-8cf8-70b29fe65e41
-  resourceVersion: "44010764"
-  uid: 24ab65e8-041f-44c6-b333-1fc096fede0a
 spec:
   podManagementPolicy: Parallel
   replicas: 1
@@ -350,7 +53,6 @@ spec:
         - --storage.tsdb.path=/prometheus
         - --storage.tsdb.retention.time=10h
         - --web.enable-lifecycle
-        - --storage.tsdb.no-lockfile
         - --web.external-url=http://prom-prometheus-operator-prometheus.metrics:9090
         - --web.route-prefix=/
         - --log.level=debug
@@ -449,16 +151,17 @@ spec:
         - --prometheus.url=http://localhost:9090
         - --grpc-address=0.0.0.0:10901
         - --http-address=0.0.0.0:10902
-        - --tsdb.path=/prometheus/
+        - --tsdb.path=/prometheus
         - --objstore.config=$(OBJSTORE_CONFIG)
         - --log.level=debug
+        - --prometheus.ready_timeout=10m
         env:
         - name: OBJSTORE_CONFIG
           valueFrom:
             secretKeyRef:
               key: tsc
               name: tsc
-        image: docker.io/bitnami/thanos:0.14.0-scratch-r3
+        image: thanosio/thanos:main-2021-12-02-c0a3f145
         imagePullPolicy: IfNotPresent
         name: thanos-sidecar
         ports:
@@ -498,16 +201,10 @@ spec:
           defaultMode: 420
           name: prometheus-prom-prometheus-operator-prometheus-rulefiles-0
         name: prometheus-prom-prometheus-operator-prometheus-rulefiles-0
-      - emptyDir: {}
+      - hostPath:
+          path: /tmp
+          type: Directory
         name: prometheus-prom-prometheus-operator-prometheus-db
   updateStrategy:
     type: RollingUpdate
-status:
-  collisionCount: 0
-  currentReplicas: 1
-  currentRevision: prometheus-prom-prometheus-operator-prometheus-6c84899d7f
-  observedGeneration: 6
-  readyReplicas: 1
-  replicas: 1
-  updateRevision: prometheus-prom-prometheus-operator-prometheus-6c84899d7f
-  updatedReplicas: 1
+

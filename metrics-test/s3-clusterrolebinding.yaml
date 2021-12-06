@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: thanos-s3
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prom-prometheus-operator-prometheus
+subjects:
+- kind: ServiceAccount
+  name: thanos-s3
+  namespace: metrics
