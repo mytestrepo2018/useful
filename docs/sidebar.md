@@ -6,4 +6,5 @@
 - [loki](loki.md)
 - [suricata](suricata.md)
 - [rancher](rancher.md)
+- [eks](eks.md)
 
