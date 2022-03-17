@@ -7,4 +7,4 @@
 - [suricata](suricata.md)
 - [rancher](rancher.md)
 - [eks](eks.md)
-
+- [metrics](metrics.md)
