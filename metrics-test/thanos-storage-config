@@ -1,0 +1,4 @@
+type: s3
+config:
+  bucket: 71879-thanos #S3 bucket name
+  endpoint: s3.eu-west-2.amazonaws.com #S3 Regional endpoint

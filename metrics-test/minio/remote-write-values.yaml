@@ -1,25 +1,25 @@
 prometheus:
   enabled: true
+  retention: 4h
   serviceAccount:
-    create: false
-    name: thanos-s3
+    create: true
   additionalScrapeConfigs:
     enabled: true
     type: internal
     internal:
       jobList: 
       - job_name: 'example-target-1'
-        scrape_interval: 30s
+        scrape_interval: 60s
         metrics_path: /
         static_configs:
         - targets: ['test-client.default.svc.cluster.local:9877']
           labels:
             mylabel: "test_client"
+  remoteWrite:
+  - url: http://thanos-receive:19291/api/v1/receive
+    writeRelabelConfigs:
+    - action: drop
+      regex: '(apiserver|kubelet)'
+      sourceLabels: [job]  
   thanos:
-    create: true
-    extraArgs:
-      - --log.level=debug
-    objectStorageConfig:
-      secretName: thanos-objstore-config
-      secretKey: thanos-storage-config
-
+    create: false

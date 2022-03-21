@@ -2,8 +2,11 @@
 objstoreConfig: |-
   type: s3
   config:
-    bucket: 71879-thanos #S3 bucket name
-    endpoint: s3.eu-west-2.amazonaws.com #S3 Regional endpoint
+    bucket: metrics-a
+    endpoint: 192.168.2.205:9000
+    access_key: user
+    secret_key: password
+    insecure: true
 bucketweb:
   enabled: false
 compactor:      
@@ -22,5 +25,4 @@ querier:
 receive:
   enabled: true
   logLevel: debug
-  tsdbRetention: 2h
-existingServiceAccount: thanos-s3
+  tsdbRetention: 1d

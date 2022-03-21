@@ -4,4 +4,4 @@ metadata:
  name: thanos-s3
  namespace: metrics
  annotations:
-   eks.amazonaws.com/role-arn:  arn:aws:iam::accountid12345678:role/eks-thanos-s3-bucket
+   eks.amazonaws.com/role-arn:  arn:aws:iam::1234567890:role/eks-thanos-s3-bucket

@@ -1,8 +1,8 @@
 prometheus:
   enabled: true
+  retention: 4h
   serviceAccount:
-    create: false
-    name: thanos-s3
+    create: true
   additionalScrapeConfigs:
     enabled: true
     type: internal
