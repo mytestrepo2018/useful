@@ -1,0 +1,20 @@
+spec:
+  filters:
+  - tag_normaliser: {}
+  - parser:
+      parse:
+        type: none
+  - kube_events_timestamp:
+      mapped_time_key: mytimefield
+      timestamp_fields:
+      - event.eventTime
+      - event.lastTimestamp
+      - event.firstTimestamp
+  localOutputRefs:
+  - logging-demo-output-elasticsearch
+  match:
+  - select:
+      labels:
+        app.kubernetes.io/instance: logging-demo
+        app.kubernetes.io/name: log-generator
+

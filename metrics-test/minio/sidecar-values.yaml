@@ -12,7 +12,7 @@ prometheus:
         scrape_interval: 30s
         metrics_path: /
         static_configs:
-        - targets: ['test-client.default.svc.cluster.local:9877']
+        - targets: ['test-client.default:9877']
           labels:
             mylabel: "test_client"
   thanos:
